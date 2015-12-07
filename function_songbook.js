@@ -1,7 +1,9 @@
+
 function getSong(){
 	
 	// Get the song name here
-	var song = document.getElementById('songName');
+	var song = document.getElementById('songNameId');
+	alert(song.value);
 	
 	//No input
 	if(song.value == ""){
@@ -11,33 +13,32 @@ function getSong(){
 	{
 		var songString = song.value;
 		//addSongToLocal(songString);
-		
-		//Get the Song
-		//getSong(zipString);		
-		
-		// Construct your query:
-		var jsonFile = "http://handforyou.org/app/songs.json";
-		
-		var songNames = [];
-		
-		$.getJSON(jsonFile, function(data){			
-			$.each( data, function( key, val ) {
-				songNames[i] = key;
-				
-				//items.push( "<li id='" + key + "'>" + val + "</li>" );
-			}
-		);
-		
-		alert(songNames);
-		//var obj = JSON.parse(jsonFile);
 
-		//alert(obj.count);
+		var itemsArray = [];
+
+		var jqxhr = $.getJSON( "songs2.json", function(data) {
+			var itemsT = [];
+  			$.each( data, function( key, val ) {
+    				itemsT.push( "<li id='" + key + "'>" + val + "</li>" );
+  			});
+			itemsArray = itemsT;
+		})
+  		.done(function() {
+    			alert( "done" );
+  		})
+  		.fail(function() {
+    			alert( "error" );
+  		})
+  		.always(function() {
+    			alert( "complete" );
+  		});
  
-		// Define your callback:
-		//var callback = function(data) {
-		//var post = data.query.results.item;
-		//addZipURL(post.link);
-		//};
+		// Set another completion function for the request above
+		jqxhr.complete(function() {
+  			for (i = 0; i < itemsArray.length; i++) { 
+    				alert(itemsArray[i]);
+			}
+		});		
 	}
 }
 
@@ -69,9 +70,3 @@ function getSongHistory(){
 	}
 	return songHistory;
 }
-
-
-
-
-
-
