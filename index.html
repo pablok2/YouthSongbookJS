@@ -24,14 +24,9 @@
 		<form>
 			<!-- make a side bar for settings like in the app send the user to a different
 			screen and store the settings locally as cookies via JS, research jquery to do this-->
-			
-			<label for="songName">Enter song name:</label>
-			<input type="text" name="songNameInput" id="songNameId"/>
-			<br>
-			<input type="button" onClick="getSong();" value = "Get song" />
 			<br>
 			<script>
-				document.write("<center>" + getSongListHtml() + "</center>");
+				document.write("<center><ul>" + getSongListHtml() + "</ul></center>");
 			</script>
 			<!-- use JS to build the list from an existing JSON file,
 			make the elements clickable and redirect to a new screan that

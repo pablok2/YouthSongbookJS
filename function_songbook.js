@@ -1,3 +1,13 @@
+// get session info about selected song
+function openSongInNewPage()
+{
+	var selSongName = sessionStorage.getItem('selectedSongName');
+	var songWords = getSongFromHistory(selSongName);
+	
+	return songWords;
+}
+
+// Data proc
 function getSong(song){
 	
 	// Get the song name here
@@ -6,21 +16,14 @@ function getSong(song){
 	
 	//Get this songs words (if any)
 	var songWords = getSongFromHistory(song);
-	if(songWords == "")
-	{
-		//continue
-	}
-	else
-	{
+	if(songWords != "")
+	{		
 		//Send the title and the words to a new page
-		alert("Send the title and the words to a new page");
-	}	
-	
-	//No input
-	if(song.value == ""){
-		alert('Please enter a song name.');
+		sessionStorage.setItem('selectedSongName', song);
+		var words = openSongInNewPage();
+		alert(words);
 	}
-	else
+	else // Song is not in the local database, download them all
 	{
 		//Get json and add to local storage
 		var jqxhr = $.getJSON( "songs2.json", function(data) {
@@ -34,18 +37,18 @@ function getSong(song){
 			});
 		})
 		.done(function() {
-				alert( "done" );
+				//alert( "done" );
 		})
 		.fail(function() {
-				alert( "error" );
+				//alert( "error" );
 		})
 		.always(function() {
-				alert( "complete" );
+				//alert( "complete" );
 		});
 	
 		// Set another completion function for the request above
 		jqxhr.complete(function() {
-			alert( "did it's thing bro" );
+			//alert( "did it's thing bro" );
 		});
 	}
 }
