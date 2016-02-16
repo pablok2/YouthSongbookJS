@@ -2,7 +2,19 @@ function getSong(){
 	
 	// Get the song name here
 	var song = document.getElementById('songNameId');
-	alert(song.value);
+	//alert(song.value);
+	
+	//Get this songs words (if any)
+	var songWords = getSongFromHistory(song.value);
+	if(songWords == "")
+	{
+		//continue
+	}
+	else
+	{
+		//Send the title and the words to a new page
+		alert("Send the title and the words to a new page");
+	}	
 	
 	//No input
 	if(song.value == ""){
@@ -10,62 +22,69 @@ function getSong(){
 	}
 	else
 	{
-		var songString = song.value;
-		//addSongToLocal(songString);
-
-		var itemsArray = [];
-
+		//Get json and add to local storage
 		var jqxhr = $.getJSON( "songs2.json", function(data) {
-			var itemsT = [];
-  			$.each( data, function( key, val ) {
-    				itemsT.push( "<li id='" + key + "'>" + val + "</li>" );
-  			});
-			itemsArray = itemsT;
+			$.each( data, function( key, val ) {
+				
+				// Add song to the local storage
+				setSaveSong(key, val);
+				
+				// Add to title list
+				addTitle(key);
+			});
 		})
-  		.done(function() {
-    			alert( "done" );
-  		})
-  		.fail(function() {
-    			alert( "error" );
-  		})
-  		.always(function() {
-    			alert( "complete" );
-  		});
- 
+		.done(function() {
+				alert( "done" );
+		})
+		.fail(function() {
+				alert( "error" );
+		})
+		.always(function() {
+				alert( "complete" );
+		});
+	
 		// Set another completion function for the request above
 		jqxhr.complete(function() {
-  			for (i = 0; i < itemsArray.length; i++) { 
-    				alert(itemsArray[i]);
-			}
-		});		
+			alert( "did it's thing bro" );
+		});
 	}
 }
 
 
-//store elements in local history
-function setSavedZip(localZip) {
-	localStorage['localZip'] = localZip;
+//store songs in local history
+function setSaveSong(localSongName, localSongWords) {
+	localStorage[localSongName] = localSongWords;
 }
 
-//Delete the cached history
-function removeHistory(){
-	localStorage.removeItem("localZip");
+//Add title to the stored array
+function addTitle(titleData){
+	var songTitles = getSongTitles();
+	songTitles.unshift(titleData);
+	localStorage["songTitles"] = JSON.stringify(songTitles);
 }
 
-//store the Song and the associated URL in local history
-function addSongToLocal(stringSong){
-	var zipHistory = getSongHistory();
-	zipHistory.unshift(zipData);
-	localStorage["localZip"] = JSON.stringify(zipHistory);
+//get titles from local history
+function getSongTitles() {
+	
+	var titleHistory = [];
+	var titles = localStorage["songTitles"];
+	
+	if(typeof titles != "undefined"){
+		var titleHistory = JSON.parse(titles);
+	}
+	
+	return titleHistory;
 }
 
 //Retrieve the stored history
-function getSongHistory(){
-	var songHistory = [];
-	var songHistoryString = localStorage["localSongs"];
+function getSongFromHistory(songName){
 	
-	if (typeof zipHistoryString != "undefined") {
-		songHistory = JSON.parse(zipHistoryString);
+	var songHistory = [];	
+	var songHistoryString = localStorage[songName];
+	
+	if (typeof songHistoryString != "undefined") {
+		songHistory = songHistoryString;
 	}
+	
 	return songHistory;
 }
