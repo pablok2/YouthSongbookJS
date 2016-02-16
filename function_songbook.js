@@ -1,4 +1,3 @@
-
 function getSong(){
 	
 	// Get the song name here
