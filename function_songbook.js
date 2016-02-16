@@ -1,11 +1,11 @@
-function getSong(){
+function getSong(song){
 	
 	// Get the song name here
-	var song = document.getElementById('songNameId');
+	//var song = document.getElementById('songNameId');
 	//alert(song.value);
 	
 	//Get this songs words (if any)
-	var songWords = getSongFromHistory(song.value);
+	var songWords = getSongFromHistory(song);
 	if(songWords == "")
 	{
 		//continue
@@ -74,6 +74,20 @@ function getSongTitles() {
 	}
 	
 	return titleHistory;
+}
+
+//Turn songs in history into an html list
+function getSongListHtml()
+{
+	var titles = getSongTitles();
+	var textOut = "";
+	
+	for(i = 0; i < titles.length; i++)
+	{
+		textOut += "<br><br><input type=\"button\" onClick=\"getSong(\'"+ titles[i] + "\');\"  value = \"" + titles[i] + "\" />";
+	}
+	
+	return textOut;
 }
 
 //Retrieve the stored history

@@ -30,7 +30,9 @@
 			<br>
 			<input type="button" onClick="getSong();" value = "Get song" />
 			<br>
-			<label>Need to put a scollable list here</label>
+			<script>
+				document.write("<center>" + getSongListHtml() + "</center>");
+			</script>
 			<!-- use JS to build the list from an existing JSON file,
 			make the elements clickable and redirect to a new screan that
 			will display the selected song like in the app -->
