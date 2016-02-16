@@ -6,10 +6,7 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		
-		<title>Hand in Hand Songbook</title>
 		
-		<!-- googleMapsApi -->
-		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		
 		<!-- jQuery styling -->
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
@@ -17,19 +14,26 @@
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
 		<!-- Local JS -->
-		<script src="functions.js"></script>
-		
+		<script src="function_songbook.js"></script>
+		<title>Hand in Hand Songbook</title>
 		
 	</head>
 	<body>
 	
-		<h1><center>Display song name here</center></h1>
+		<!-- get the song title here -->
+		<h1>
+			<center>
+				<script>
+					document.write("Display song name here");
+				</script>
+			</center>
+		</h1>
 		<form>
 			<!-- make a side bar for settings like in the app send the user to a different
 			screen and store the settings locally as cookies via JS, research jquery to do this-->
-			<input type="button" onClick="getZipCity();" value="Get info"/>
-			<br>
-			<label>Words go here</label>
+			<script>		
+				document.write("<br><label><center>" + getSongFromHistory('А вот море Галилей') + "</center></label>");
+			</script>
 			<!-- use JS to build the list from an existing JSON file,
 			make the elements clickable and redirect to a new screan that
 			will display the selected song like in the app -->
