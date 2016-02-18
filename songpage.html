@@ -24,7 +24,7 @@
 		<h1>
 			<center>
 				<script>
-					document.write("Display song name here");
+					document.write(currectSongTitle());
 				</script>
 			</center>
 		</h1>
@@ -32,7 +32,7 @@
 			<!-- make a side bar for settings like in the app send the user to a different
 			screen and store the settings locally as cookies via JS, research jquery to do this-->
 			<script>		
-				document.write("<br><label><center>" + getSongFromHistory('А вот море Галилей') + "</center></label>");
+				document.write("<br><label><center>" + openSongInNewPage() + "</center></label>");
 			</script>
 			<!-- use JS to build the list from an existing JSON file,
 			make the elements clickable and redirect to a new screan that
